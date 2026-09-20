@@ -12,7 +12,8 @@ REPO="https://github.com/matej-polivka/ai-zamestnanec"
 U=asistent
 H=/home/$U
 APP=$H/asistent
-TTY=/dev/tty
+# Terminál pro otázky; bez terminálu (Docker, CI) jen výpis na stderr a odpovědi z env.
+if { : <>/dev/tty; } 2>/dev/null; then TTY=/dev/tty; else TTY=/dev/stderr; fi
 
 say() { printf '\n\033[1;32m%s\033[0m\n' "$*" >$TTY; }
 # Neinteraktivní režim (test / pokročilí): JMENO, TG_TOKEN, TG_ID, FAKTUROID_* jako env proměnné.
