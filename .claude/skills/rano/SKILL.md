@@ -1,6 +1,6 @@
 ---
 name: rano
-description: Ranní report do Telegramu. Nové emaily roztříděné, faktury po splatnosti a blízko splatnosti, dnešní program. Spouští se automaticky v 7:00 nebo na příkaz "rano" / "ranní report" / "co mám dneska".
+description: Ranní report do Telegramu. Nové emaily roztříděné, dnešní program z kalendáře, připomínky. Spouští se automaticky v 7:00 nebo na příkaz "rano" / "ranní report" / "co mám dneska".
 ---
 
 # Ranní report
