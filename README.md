@@ -13,8 +13,6 @@ Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dv
 
 ## 5 kroků
 
-**Krok 0 (2 minuty, jednou):** na [claude.ai/customize/connectors](https://claude.ai/customize/connectors) si připoj Gmail a Google Calendar. Asistent je pak uvidí automaticky. Bez toho ti bude umět všechno kromě emailů a kalendáře.
-
 
 1. **Kup VPS** přes odkaz výše. Při výběru operačního systému zvol **Ubuntu 24.04 with Claude Code**.
 2. **Otevři terminál v prohlížeči.** V hPanelu u svého VPS klikni na "Terminál" (Browser terminal). Nic neinstaluješ.

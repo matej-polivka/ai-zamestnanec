@@ -71,7 +71,7 @@ else
   # které terminál v prohlížeči nezobrazí) a kód od uživatele do něj pošleme.
   asu "tmux kill-session -t login 2>/dev/null; tmux new-session -d -s login -x 250 -y 50 'cd $APP && claude auth login; sleep 5'"
   URL=""; for i in $(seq 1 30); do
-    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1)
+    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1 || true)
     [ -n "$URL" ] && break; sleep 1
   done
   if [ -z "$URL" ]; then echo "  ✗ Nepodařilo se získat přihlašovací odkaz. Spusť: su - $U -c 'claude auth login'" >$TTY; exit 1; fi
@@ -91,7 +91,7 @@ else
     [ $ok = 1 ] && { echo "  ✓ přihlášeno" >$TTY; break; }
     echo "  ✗ Kód nesedí nebo vypršel. Otevři odkaz znovu a vlož nový kód." >$TTY
     asu "tmux kill-session -t login 2>/dev/null; tmux new-session -d -s login -x 250 -y 50 'cd $APP && claude auth login; sleep 5'"; sleep 4
-    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1); echo "  $URL" >$TTY
+    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1 || true); echo "  $URL" >$TTY
   done
   asu "tmux kill-session -t login 2>/dev/null; true"
 fi
