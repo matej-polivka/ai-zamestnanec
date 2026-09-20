@@ -34,7 +34,7 @@ fi
 grep -q BUN_INSTALL $H/.bashrc || printf '\nexport BUN_INSTALL="$HOME/.bun"\nexport PATH="$BUN_INSTALL/bin:$PATH"\n' >> $H/.bashrc
 
 say "2/6  Stahuju šablonu asistenta"
-if   [ -d "$APP/.git" ];    then asu "git -C $APP pull -q"
+if   [ -d "$APP/.git" ];    then asu "git -C $APP pull -q --rebase --autostash" >/dev/null 2>&1 || echo "  (aktualizace šablony přeskočena, ponechávám tvoje úpravy)" >$TTY
 elif [ -f "$APP/CLAUDE.md" ]; then echo "  (už je tady, nechávám)" >$TTY
 else asu "git clone -q $REPO $APP"; fi
 chmod +x $APP/*.sh
