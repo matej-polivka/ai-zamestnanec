@@ -51,11 +51,12 @@ Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dv
 3. Vyfoť účtenku a pošli mu ji. Zapíše ji a řekne, kolik jsi tento měsíc utratil.
 4. Napiš "každý pátek v 16 mi připomeň fakturaci". Od teď to hlídá on.
 5. Napiš "zapamatuj si, že newslettery od X jsou spam". Příště je nebude ukazovat.
+6. Za týden napiš "co o mně víš". Uvidíš, co se naučil sám.
 
 ## Přizpůsobení
 
 - `CLAUDE.md`: jméno, kdo jsi, co je pro tebe urgentní, pravidla. Tady začni.
-- `memory/`: co si asistent pamatuje. Můžeš tam psát i ty.
+- `memory/`: dlouhodobá paměť (kdo jsi, lidé, projekty, pravidla). Asistent si tam píše sám, každý večer ve 23:00 navíc projde celý den a doplní, co uteklo. Můžeš tam psát i ty.
 - `.claude/skills/`: co umí. Zkopíruj `rano/SKILL.md`, přejmenuj, popiš nový úkol.
 - Čas ranního reportu: `crontab -e`, řádek s `rano.sh` (7 = sedm ráno, čas serveru).
 

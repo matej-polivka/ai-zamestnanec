@@ -1,10 +1,13 @@
 # Paměť asistenta
 
-Tady si asistent ukládá, co se o tobě dozví. Jeden soubor = jedno téma. Ty do toho můžeš psát taky.
+Pravidla, jak se tu píše a čte: [CLAUDE-WIKI.md](CLAUDE-WIKI.md). Jeden soubor = jedno téma.
 
-- [emaily-preference.md](emaily-preference.md) — kdo je vždy spam, vždy archivovat, vždy urgentní; kdy naposledy proběhlo třídění
-- [klienti.md](klienti.md) — kdo je kdo, co s nimi řešíš, co je otevřené
+- [ja.md](ja.md) — kdo je uživatel, co je pro něj důležité
+- [lide.md](lide.md) — klienti, kolegové, dodavatelé; co s nimi řešíme
+- [projekty.md](projekty.md) — rozdělané věci, termíny, stav
+- [pravidla.md](pravidla.md) — co uživatel řekl, ať dělám jinak
+- [emaily-preference.md](emaily-preference.md) — kdo je vždy spam / archivovat / urgentní; kdy naposledy proběhlo třídění
 - [zapisky/](zapisky/) — výdaje z účtenek, poznámky, shrnutí dokumentů (plní skill zapis)
-- [pravidla.md](pravidla.md) — co jsi asistentovi řekl, ať dělá jinak ("upomínky piš mírněji", "reporty bez emoji")
+- [log.md](log.md) — co se kdy zapsalo
 
 Asistent: když založíš nový soubor, přidej ho sem na řádek s jednou větou, k čemu je.

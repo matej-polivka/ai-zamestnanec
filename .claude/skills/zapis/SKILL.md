@@ -13,8 +13,8 @@ Uživatel ti něco pošle a chce, abys to zpracoval, ne aby to musel přepisovat
 |---|---|
 | Fotka účtenky / faktury | vytáhni datum, dodavatele, částku, DPH, co bylo koupeno → přidej řádek do `memory/zapisky/vydaje.md` |
 | PDF smlouvy, nabídky, dokumentu | 5 nejdůležitějších bodů, termíny, částky, co se po uživateli chce → `memory/zapisky/dokumenty.md` |
-| Vizitka / kontakt | jméno, firma, telefon, email, kontext → `memory/klienti.md` |
-| Přeposlaný dlouhý email nebo chat | co se řeší, kdo co slíbil, jaké termíny, co je na uživateli → shrnutí 3 věty + záznam do `memory/klienti.md` u té osoby |
+| Vizitka / kontakt | jméno, firma, telefon, email, kontext → `memory/lide.md` |
+| Přeposlaný dlouhý email nebo chat | co se řeší, kdo co slíbil, jaké termíny, co je na uživateli → shrnutí 3 věty + záznam do `memory/lide.md` u té osoby |
 | Poznámka / nápad ("zapiš si, že...") | `memory/zapisky/poznamky.md` s datem |
 
 Fotky z Telegramu jsou stažené v `~/.claude/channels/telegram/inbox/`, cesta je v příchozí zprávě. Otevři je nástrojem Read. PDF taky.

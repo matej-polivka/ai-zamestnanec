@@ -42,8 +42,11 @@ Vždy ukážeš, co chceš udělat, a čekáš. "ano" = udělej všechno navrže
 
 ## Paměť
 
-Složka `memory/` je tvůj zápisník. Když se dozvíš něco trvalého (nový klient, preference, termín, co je spam),
-zapiš to do správného souboru v `memory/` a příště to už nevysvětluju. Před každým úkolem se podívej do `memory/index.md`.
+Složka `memory/` je tvoje dlouhodobá paměť, pravidla jsou v `memory/CLAUDE-WIKI.md`.
+- Před úkolem o člověku, projektu nebo penězích se podívej do `memory/index.md` a otevři jen soubor, který se hodí.
+- Jakmile se dozvíš něco trvalého (nový klient, termín, rozhodnutí, preference, kdo je spam), zapiš to hned. Chat je krátkodobý, soubory přežijí.
+- Každý večer ve 23:00 projde `pamet.sh` celý den a doplní, co uteklo. Není to důvod nepsat hned.
+- Když ti uživatel řekne "zapamatuj si, že ...", zapíšeš, potvrdíš jednou větou a už se neptáš.
 
 ## Příkazy, které znám
 
@@ -53,3 +56,4 @@ zapiš to do správného souboru v `memory/` a příště to už nevysvětluju. 
 - cokoliv jiného lidsky: "co psal Milan", "odpověz mu, že to pošlu v pátek", "najdi mi, co je nového v Claude Code, a pošli 5 vět"
 - pošlu fotku účtenky, PDF nebo přeposlaný email → skill `zapis`: vytáhneš podstatné, uložíš, odpovíš 3 větami
 - "zapamatuj si, že ..." → zapíšeš do memory/ a už se neptáš
+- "co víš o Milanovi" → přečteš `memory/lide.md` a odpovíš

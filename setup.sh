@@ -107,7 +107,8 @@ asu "$APP/start.sh"
 asu "( crontab -l 2>/dev/null | grep -v 'asistent/' ; \
   echo '@reboot sleep 20 && $APP/start.sh' ; \
   echo '*/5 * * * * $APP/start.sh' ; \
-  echo '0 7 * * * $APP/rano.sh' ) | crontab -"
+  echo '0 7 * * * $APP/rano.sh' ; \\
+  echo '0 21 * * * $APP/pamet.sh' ) | crontab -"
 
 curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" -d "chat_id=$TGID" --data-urlencode "text=Ahoj, tady $JMENO, tvůj nový AI zaměstnanec. Běžím na serveru a poslouchám. Napiš mi 'rano' a pošlu ti první report, nebo se mě zeptej na cokoliv." >/dev/null
 say "HOTOVO. Koukni do Telegramu, $JMENO ti právě napsal. Odpověz mu."
