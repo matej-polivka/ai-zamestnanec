@@ -17,7 +17,7 @@ if { : <>/dev/tty; } 2>/dev/null; then TTY=/dev/tty; else TTY=/dev/stderr; fi
 
 say() { printf '\n\033[1;32m%s\033[0m\n' "$*" >$TTY; }
 # Neinteraktivní režim (test / pokročilí): JMENO, TG_TOKEN, TG_ID, FAKTUROID_* jako env proměnné.
-ask() { local v; printf '\033[1;33m%s\033[0m ' "$1" >$TTY; read -r v <$TTY; echo "$v"; }
+ask() { local v; [ "$TTY" = /dev/tty ] || { echo ""; return; }; printf '\033[1;33m%s\033[0m ' "$1" >$TTY; read -r v <$TTY; echo "$v"; }
 asu() { su - $U -c "export PATH=$H/.bun/bin:\$PATH; $*"; }
 
 [ "$(id -u)" = 0 ] || { echo "Spusť jako root."; exit 1; }
