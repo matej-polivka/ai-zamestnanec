@@ -1,7 +1,7 @@
 # AI zaměstnanec do 10 minut
 
 Vlastní AI asistent, který běží pořád (i když máš vypnutý počítač), píšeš mu z mobilu přes Telegram
-a každé ráno v 7:00 ti pošle, co tě čeká: roztříděné emaily, faktury po splatnosti, dnešní program.
+a každé ráno v 7:00 ti pošle, co tě čeká: roztříděné emaily, dnešní program, připomínky.
 
 Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dvě přihlášení.
 
@@ -25,23 +25,29 @@ Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dv
    - přihlášení ke Claude: otevři odkaz, přihlas se, vlož kód zpátky
 5. **Napiš svému botovi "ahoj".** Hotovo.
 
-Volitelně ti průvodce nabídne napojení na Fakturoid (Nastavení → Uživatelský účet → API). Enter = přeskočit.
-
 ## Co asistent umí hned
 
 | Napiš mu | Udělá |
 |---|---|
 | `rano` nebo `co mám dneska` | ranní report (chodí sám v 7:00) |
 | `emaily` | roztřídí nové emaily, navrhne odpovědi, čeká na "ano" |
-| `splatnosti` nebo `kdo mi dluží` | faktury po splatnosti, připraví upomínky |
+| `připomeň mi zítra v 9 zavolat Petrovi` | nastaví budík a v 9:00 ti napíše |
+| `každé pondělí v 8 mi pošli, co mě čeká tento týden` | plánovaný úkol, každé pondělí přijde přehled |
 | cokoliv lidsky | "co psal Milan", "odpověz mu, že to pošlu v pátek", "zapamatuj si, že newslettery od X jsou spam" |
 
 ## Bezpečnost, jak je nastavená
 
 - Bot odpovídá jen tobě (tvoje Telegram ID v allowlistu). Cizí zprávy zahazuje bez odpovědi.
-- Asistent **nesmí odeslat email, smazat email ani vystavit fakturu ani nic měnit ve Fakturoidu**. Je to zakázané v `.claude/settings.json`, ne jen "poprošené" v promptu.
+- Asistent **nesmí odeslat email ani smazat email**. Je to zakázané v `.claude/settings.json`, ne jen "poprošené" v promptu.
 - Všechno, co mění svět, ti nejdřív ukáže a čeká na "ano".
 - Server je jen jeho. Nedávej tam nic jiného, co nechceš, aby viděl.
+
+## Co zkusit první den
+
+1. Napiš mu "rano". Dostaneš první report.
+2. Napiš "emaily" a pak "ano". Uklidí ti schránku a připraví odpovědi.
+3. Napiš "každý pátek v 16 mi připomeň fakturaci". Od teď to hlídá on.
+4. Napiš "zapamatuj si, že newslettery od X jsou spam". Příště je nebude ukazovat.
 
 ## Přizpůsobení
 

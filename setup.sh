@@ -16,13 +16,13 @@ APP=$H/asistent
 if { : <>/dev/tty; } 2>/dev/null; then TTY=/dev/tty; else TTY=/dev/stderr; fi
 
 say() { printf '\n\033[1;32m%s\033[0m\n' "$*" >$TTY; }
-# Neinteraktivní režim (test / pokročilí): JMENO, TG_TOKEN, TG_ID, FAKTUROID_* jako env proměnné.
+# Neinteraktivní režim (test / pokročilí): JMENO, TG_TOKEN, TG_ID jako env proměnné.
 ask() { local v; [ "$TTY" = /dev/tty ] || { echo ""; return; }; printf '\033[1;33m%s\033[0m ' "$1" >$TTY; read -r v <$TTY; echo "$v"; }
 asu() { su - $U -c "export PATH=$H/.bun/bin:\$PATH; $*"; }
 
 [ "$(id -u)" = 0 ] || { echo "Spusť jako root."; exit 1; }
 
-say "1/6  Instaluju nástroje (tmux, git, jq, unzip, bun, Claude Code)"
+say "1/5  Instaluju nástroje (tmux, git, jq, unzip, bun, Claude Code)"
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq && apt-get install -y -qq tmux git jq curl unzip cron ca-certificates >/dev/null
 id $U >/dev/null 2>&1 || useradd -m -s /bin/bash $U
@@ -33,18 +33,18 @@ fi
 [ -x $H/.bun/bin/bun ] || asu 'curl -fsSL https://bun.sh/install | bash >/dev/null 2>&1'
 grep -q BUN_INSTALL $H/.bashrc || printf '\nexport BUN_INSTALL="$HOME/.bun"\nexport PATH="$BUN_INSTALL/bin:$PATH"\n' >> $H/.bashrc
 
-say "2/6  Stahuju šablonu asistenta"
+say "2/5  Stahuju šablonu asistenta"
 if   [ -d "$APP/.git" ];    then asu "git -C $APP pull -q --rebase --autostash" >/dev/null 2>&1 || echo "  (aktualizace šablony přeskočena, ponechávám tvoje úpravy)" >$TTY
 elif [ -f "$APP/CLAUDE.md" ]; then echo "  (už je tady, nechávám)" >$TTY
 else asu "git clone -q $REPO $APP"; fi
 chmod +x $APP/*.sh
 mkdir -p $H/.claude/channels/telegram
 
-say "3/6  Jméno"
+say "3/5  Jméno"
 JMENO=${JMENO:-$(ask "  Jak se má tvůj asistent jmenovat? (Enter = Alan)")}; JMENO=${JMENO:-Alan}
 sed -i "s/Jmenuješ se \*\*[^*]*\*\*/Jmenuješ se **$JMENO**/" $APP/CLAUDE.md
 
-say "4/6  Telegram"
+say "4/5  Telegram"
 echo "  a) V Telegramu otevři @BotFather, pošli /newbot, pojmenuj ho. Dostaneš token (123456789:AAH...)." >$TTY
 while :; do
   TOKEN=${TG_TOKEN:-$(ask "  Vlož token:")}
@@ -62,19 +62,7 @@ printf 'TELEGRAM_BOT_TOKEN=%s\n' "$TOKEN" > $H/.claude/channels/telegram/.env
 printf '{"dmPolicy":"allowlist","allowFrom":["%s"],"groups":{},"ackReaction":"👀","chunkMode":"newline"}\n' "$TGID" > $H/.claude/channels/telegram/access.json
 printf 'TG_CHAT_ID=%s\n' "$TGID" > $APP/.env
 
-say "5/6  Fakturace (volitelné)"
-echo "  Fakturoid: Nastavení → Uživatelský účet → API. Enter = přeskočit." >$TTY
-FID=${FAKTUROID_CLIENT_ID:-$(ask "  Fakturoid Client ID:")}
-if [ -n "$FID" ]; then
-  FSEC=${FAKTUROID_CLIENT_SECRET:-$(ask "  Fakturoid Client Secret:")}
-  FSLUG=${FAKTUROID_SLUG:-$(ask "  Slug účtu (z adresy app.fakturoid.cz/SLUG):")}
-  FMAIL=${FAKTUROID_EMAIL:-$(ask "  Email, kterým se do Fakturoidu přihlašuješ:")}
-  jq --arg a "$FID" --arg b "$FSEC" --arg c "$FSLUG" --arg d "$FMAIL" \
-    '.env.FAKTUROID_CLIENT_ID=$a | .env.FAKTUROID_CLIENT_SECRET=$b | .env.FAKTUROID_SLUG=$c | .env.FAKTUROID_EMAIL=$d' \
-    $APP/.claude/settings.json > $APP/.claude/settings.tmp && mv $APP/.claude/settings.tmp $APP/.claude/settings.json
-fi
-
-say "6/6  Přihlášení ke Claude"
+say "5/5  Přihlášení ke Claude"
 echo "  Za chvíli uvidíš odkaz. Otevři ho v prohlížeči, přihlas se svým Claude účtem (Pro nebo Max)," >$TTY
 echo "  zkopíruj kód, který ti prohlížeč ukáže, a vlož ho sem." >$TTY
 chown -R $U:$U $H

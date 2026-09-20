@@ -10,9 +10,9 @@ Cíl: jedna zpráva, kterou přečtu u snídaně na mobilu za 30 sekund a vím, 
 ## Postup
 
 1. **Emaily**: načti nepřečtené emaily od včerejšího reportu (nebo za posledních 24 h). Roztřiď podle pravidel ve skillu `emaily`. Do reportu jde jen kategorie Urgentní a K přečtení. Archivovat a Spam jen spočítej.
-2. **Faktury**: pokud je nastavené napojení na fakturaci (skill `splatnosti`), zjisti faktury po splatnosti a splatné do 7 dnů. Vydané i přijaté. Když napojení není, sekci vynech.
-3. **Dnešek**: pokud je napojený kalendář, vypiš dnešní události s časem. Když není, sekci vynech.
-4. **Návrh akcí**: ke každému urgentnímu emailu jedna věta, co navrhuješ. K fakturám po splatnosti: "mám připravit upomínku?"
+2. **Dnešek**: pokud je napojený kalendář, vypiš dnešní události s časem. Když není, sekci vynech.
+3. **Připomínky**: pokud je v crontabu něco na dnešek (`crontab -l | grep -E 'pripominka|ukol'`), zmiň to.
+4. **Návrh akcí**: ke každému urgentnímu emailu jedna věta, co navrhuješ.
 
 ## Formát zprávy do Telegramu
 
@@ -26,18 +26,16 @@ Bez markdown hlaviček. Přesně takhle:
 • ...
 ([Z] newsletterů a notifikací přeskočeno)
 
-💸 Faktury
-• Po splatnosti: [Firma] [částka] Kč, [X] dní → mám připravit upomínku?
-• Do 7 dnů splatné: [Firma] [částka] Kč ([datum])
-• Mám zaplatit: [Firma] [částka] Kč do [datum]
-
 📅 Dnes
 • [čas] [událost]
+
+⏰ Připomínky
+• [čas] [text]
 
 Odpověz "ano" a připravím navržené věci. Nebo mi napiš, co chceš jinak.
 ```
 
-Když v nějaké sekci nic není, napiš "nic" (například "💸 Faktury: nic"). Prázdná sekce je informace.
+Když v nějaké sekci nic není, napiš "nic" (například "📅 Dnes: nic"). Prázdná sekce je informace.
 
 ## Pravidla
 
