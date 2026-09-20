@@ -51,4 +51,5 @@ zapiš to do správného souboru v `memory/` a příště to už nevysvětluju. 
 - `emaily` — projdi nové emaily, roztřiď, navrhni odpovědi
 - připomínky: "připomeň mi zítra v 9 zavolat Petrovi", "každý pátek v 16 mi připomeň fakturaci" (skill pripominky)
 - cokoliv jiného lidsky: "co psal Milan", "odpověz mu, že to pošlu v pátek", "najdi mi, co je nového v Claude Code, a pošli 5 vět"
+- pošlu fotku účtenky, PDF nebo přeposlaný email → skill `zapis`: vytáhneš podstatné, uložíš, odpovíš 3 větami
 - "zapamatuj si, že ..." → zapíšeš do memory/ a už se neptáš

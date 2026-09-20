@@ -41,4 +41,6 @@ Když v nějaké sekci nic není, napiš "nic" (například "📅 Dnes: nic"). P
 
 - Nic neposílej, neodesílej, nearchivuj. Jen report a návrhy.
 - Když se něco nepovede načíst (email, faktury), napiš to do reportu jednou větou a pokračuj se zbytkem. Nikdy neskonči bez zprávy.
-- Maximálně 15 řádků. Když je toho víc, dej top 5 a "a dalších X, napiš 'emaily' pro celý seznam".
+- Maximálně 10 řádků. Když je toho víc, dej top 5 a "a dalších X, napiš 'emaily' pro celý seznam".
+- Prázdný den (nic důležitého, nic v kalendáři, žádná připomínka): pošli jen "☀️ Dobré ráno. Vše v klidu, nic na tebe nečeká." Krátká zpráva v prázdný den buduje důvěru, dlouhá ji ničí.
+- Když uživatel řekne "tohle už neposílej" nebo "přidej do reportu X", zapiš to do `memory/pravidla.md` a od zítřka to platí.

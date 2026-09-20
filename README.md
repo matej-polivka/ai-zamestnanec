@@ -33,6 +33,7 @@ Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dv
 | `emaily` | roztřídí nové emaily, navrhne odpovědi, čeká na "ano" |
 | `připomeň mi zítra v 9 zavolat Petrovi` | nastaví budík a v 9:00 ti napíše |
 | `každé pondělí v 8 mi pošli, co mě čeká tento týden` | plánovaný úkol, každé pondělí přijde přehled |
+| pošleš fotku účtenky nebo PDF | přečte, zapíše výdaj nebo shrnutí, odpoví 3 větami |
 | cokoliv lidsky | "co psal Milan", "odpověz mu, že to pošlu v pátek", "zapamatuj si, že newslettery od X jsou spam" |
 
 ## Bezpečnost, jak je nastavená
@@ -46,8 +47,9 @@ Postavený na Claude Code. Žádný Docker, žádné configy. Jeden příkaz, dv
 
 1. Napiš mu "rano". Dostaneš první report.
 2. Napiš "emaily" a pak "ano". Uklidí ti schránku a připraví odpovědi.
-3. Napiš "každý pátek v 16 mi připomeň fakturaci". Od teď to hlídá on.
-4. Napiš "zapamatuj si, že newslettery od X jsou spam". Příště je nebude ukazovat.
+3. Vyfoť účtenku a pošli mu ji. Zapíše ji a řekne, kolik jsi tento měsíc utratil.
+4. Napiš "každý pátek v 16 mi připomeň fakturaci". Od teď to hlídá on.
+5. Napiš "zapamatuj si, že newslettery od X jsou spam". Příště je nebude ukazovat.
 
 ## Přizpůsobení
 
