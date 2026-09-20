@@ -63,11 +63,38 @@ printf '{"dmPolicy":"allowlist","allowFrom":["%s"],"groups":{},"ackReaction":"�
 printf 'TG_CHAT_ID=%s\n' "$TGID" > $APP/.env
 
 say "5/5  Přihlášení ke Claude"
-echo "  Za chvíli uvidíš odkaz. Otevři ho v prohlížeči, přihlas se svým Claude účtem (Pro nebo Max)," >$TTY
-echo "  zkopíruj kód, který ti prohlížeč ukáže, a vlož ho sem." >$TTY
 chown -R $U:$U $H
-if asu "claude auth status 2>/dev/null | grep -q '\"loggedIn\": true'"; then echo "  ✓ už přihlášeno" >$TTY
-else su - $U -c "cd $APP && claude auth login" <$TTY >$TTY 2>&1; fi
+if asu "claude auth status 2>/dev/null | grep -q '\"loggedIn\": true'"; then
+  echo "  ✓ už přihlášeno" >$TTY
+else
+  # Login běží v tmuxu, odkaz z něj vytáhneme jako čistý text (bez klikacích escape sekvencí,
+  # které terminál v prohlížeči nezobrazí) a kód od uživatele do něj pošleme.
+  asu "tmux kill-session -t login 2>/dev/null; tmux new-session -d -s login -x 250 -y 50 'cd $APP && claude auth login; sleep 5'"
+  URL=""; for i in $(seq 1 30); do
+    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1)
+    [ -n "$URL" ] && break; sleep 1
+  done
+  if [ -z "$URL" ]; then echo "  ✗ Nepodařilo se získat přihlašovací odkaz. Spusť: su - $U -c 'claude auth login'" >$TTY; exit 1; fi
+  echo "" >$TTY
+  echo "  Otevři tenhle odkaz v prohlížeči a přihlas se svým Claude účtem (Pro nebo Max):" >$TTY
+  echo "" >$TTY
+  echo "  $URL" >$TTY
+  echo "" >$TTY
+  echo "  Po přihlášení ti stránka ukáže kód. Zkopíruj ho celý a vlož sem." >$TTY
+  while :; do
+    CODE=$(ask "  Vlož kód:")
+    [ -n "$CODE" ] || { [ "$TTY" = /dev/tty ] || exit 1; continue; }
+    asu "tmux send-keys -t login '$CODE' Enter"
+    ok=0; for i in $(seq 1 20); do
+      asu "claude auth status 2>/dev/null | grep -q '\"loggedIn\": true'" && { ok=1; break; }; sleep 1
+    done
+    [ $ok = 1 ] && { echo "  ✓ přihlášeno" >$TTY; break; }
+    echo "  ✗ Kód nesedí nebo vypršel. Otevři odkaz znovu a vlož nový kód." >$TTY
+    asu "tmux kill-session -t login 2>/dev/null; tmux new-session -d -s login -x 250 -y 50 'cd $APP && claude auth login; sleep 5'"; sleep 4
+    URL=$(asu "tmux capture-pane -p -t login -J" | tr -d '\r' | grep -o 'https://claude.com/[^ ]*' | head -1); echo "  $URL" >$TTY
+  done
+  asu "tmux kill-session -t login 2>/dev/null; true"
+fi
 asu "claude plugin marketplace add anthropics/claude-plugins-official >/dev/null 2>&1; claude plugin install telegram@claude-plugins-official >/dev/null 2>&1; true"
 
 # Přeskočit úvodního průvodce (barvy, důvěra složce, potvrzení bezobslužného režimu)
@@ -84,6 +111,7 @@ asu "( crontab -l 2>/dev/null | grep -v 'asistent/' ; \
 
 curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" -d "chat_id=$TGID" --data-urlencode "text=Ahoj, tady $JMENO, tvůj nový AI zaměstnanec. Běžím na serveru a poslouchám. Napiš mi 'rano' a pošlu ti první report, nebo se mě zeptej na cokoliv." >/dev/null
 say "HOTOVO. Koukni do Telegramu, $JMENO ti právě napsal. Odpověz mu."
+echo "  Emaily a kalendář: připoj si je na claude.ai → Nastavení → Konektory (Gmail, Google Calendar). $JMENO je uvidí sám." >$TTY
 echo "  Ranní report chodí v 7:00. Chceš ho hned? Napiš botovi 'rano'." >$TTY
 echo "  Nastavení: $APP/CLAUDE.md (kdo jsi, pravidla). Upravit: nano $APP/CLAUDE.md" >$TTY
 echo "  Nakouknout, co dělá: su - asistent -c 'tmux attach -t asistent'  (odejít: Ctrl+B, pak D)" >$TTY
