@@ -23,6 +23,7 @@ asu() { su - $U -c "export PATH=$H/.bun/bin:\$PATH; $*"; }
 [ "$(id -u)" = 0 ] || { echo "Spusť jako root."; exit 1; }
 
 say "1/5  Instaluju nástroje (tmux, git, jq, unzip, bun, Claude Code)"
+timedatectl set-timezone Europe/Prague 2>/dev/null || ln -sf /usr/share/zoneinfo/Europe/Prague /etc/localtime
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq && apt-get install -y -qq tmux git jq curl unzip cron ca-certificates >/dev/null
 id $U >/dev/null 2>&1 || useradd -m -s /bin/bash $U
@@ -104,11 +105,11 @@ chmod 600 $H/.claude/channels/telegram/.env $APP/.env; chown -R $U:$U $H
 
 say "Spouštím asistenta a nastavuju budík"
 asu "$APP/start.sh"
-asu "( crontab -l 2>/dev/null | grep -v 'asistent/' ; \
-  echo '@reboot sleep 20 && $APP/start.sh' ; \
-  echo '*/5 * * * * $APP/start.sh' ; \
+asu "( crontab -l 2>/dev/null | grep -vE 'asistent/(start|rano|pamet)\\.sh' ; \\
+  echo '@reboot sleep 20 && $APP/start.sh' ; \\
+  echo '*/5 * * * * $APP/start.sh' ; \\
   echo '0 7 * * * $APP/rano.sh' ; \\
-  echo '0 21 * * * $APP/pamet.sh' ) | crontab -"
+  echo '0 23 * * * $APP/pamet.sh' ) | crontab -"
 
 curl -s -X POST "https://api.telegram.org/bot$TOKEN/sendMessage" -d "chat_id=$TGID" --data-urlencode "text=Ahoj, tady $JMENO, tvůj nový AI zaměstnanec. Běžím na serveru a poslouchám. Napiš mi 'rano' a pošlu ti první report, nebo se mě zeptej na cokoliv." >/dev/null
 say "HOTOVO. Koukni do Telegramu, $JMENO ti právě napsal. Odpověz mu."

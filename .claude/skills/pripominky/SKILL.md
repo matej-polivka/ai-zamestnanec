@@ -23,7 +23,7 @@ Plánovaný úkol = řádek, který volá `./ukol.sh "zadání"`:
 
 Formát cronu: `minuta hodina den měsíc den_v_týdnu` (0 = neděle, 1 = pondělí, 5 = pátek). Jednorázová připomínka: nastav konkrétní den a měsíc a na konec příkazu přidej `; crontab -l | grep -v 'pripominka: NAZEV' | crontab -`, aby se po odpálení smazala.
 
-Čas serveru je UTC. Česko je UTC+2 v létě (do konce října), UTC+1 v zimě. "V 9 ráno" v létě = `0 7` v cronu. Vždy to přepočítej a v potvrzení napiš čas tak, jak ho řekl uživatel.
+Server běží v českém čase (Europe/Prague), takže "v 9 ráno" = `0 9` v cronu. Ověř si to příkazem `date`.
 
 ## Správa
 
